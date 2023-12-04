@@ -22,7 +22,7 @@ const ProductSchema = new Schema({
 
 ProductSchema.virtual("url").get(function () {
 	// We don't use an arrow function as we'll need the this object
-	return `/product/${this._id}`;
+	return `/products/${this._id}`;
 });
 
 ProductSchema.virtual("img_url").get(function () {
