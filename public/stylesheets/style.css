@@ -166,3 +166,30 @@ li {
 }
 .side-bar {
 }
+
+img {
+	height: 175px;
+	width: 175px;
+}
+
+.list {
+	display: flex;
+	gap: 15px;
+}
+.list > div {
+	padding: 3px;
+	border: solid black 2px;
+}
+.info {
+	display: flex;
+	justify-content: space-between;
+}
+
+.info p {
+	white-space: initial;
+}
+
+h3 {
+	font-size: 1rem;
+	font-weight: 400;
+}
