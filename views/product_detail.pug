@@ -1,0 +1,17 @@
+extends layout
+
+block content
+    .detail-page
+        img.detail-picture(src="/images/product_placeholder.jpg", alt="")
+        .detail
+            .product-info
+                h2 #{product.name}
+                p Description: #{product.desc}           
+                p Category: #[a(href=product.category_url) #{product.category.name}]
+                p In stock: #{product.in_stock}
+            .button-group
+                button.buy Buy 
+                a(href=product.url + "/edit", target="_")
+                    input.update(type="button", value="Update")
+                a(href=product.url + "/delete", target="_")
+                    input.delete(type="button", value="Delete")

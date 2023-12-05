@@ -14,14 +14,17 @@ exports.product_list = asyncHandler(async (req, res, next) => {
 
 exports.product_detail = asyncHandler(async (req, res, next) => {
 	const id = req.params.id;
-	const product = await Product.findById(id).exec();
+	const product = await Product.findById(id).populate("category").exec();
+	console.log(product);
+	console.log(product.category_url);
+	res.render("product_detail", { product: product });
 });
 
 exports.product_add = asyncHandler(async (req, res, next) => {
 	// To be implemented
 });
 exports.product_edit = asyncHandler(async (req, res, next) => {
-	// To be implemented
+	res.sendStatus(202);
 });
 exports.product_delete = asyncHandler(async (req, res, next) => {
 	// To be implemented

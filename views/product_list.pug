@@ -7,8 +7,8 @@ block content
     each product in products
         div
             a(href=product.url) 
-                img(src="./images/product_placeholder.jpg", alt="")
+                img.list-page(src="./images/product_placeholder.jpg", alt="")
             h3= product.name
             .info 
-                p In stock: #{product.in_stock}
+                p Stock: #{product.in_stock}
                 p $#{product.price} 

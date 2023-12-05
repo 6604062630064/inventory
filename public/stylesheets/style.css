@@ -167,7 +167,7 @@ li {
 .side-bar {
 }
 
-img {
+img.list-page {
 	height: 175px;
 	width: 175px;
 }
@@ -192,4 +192,67 @@ img {
 h3 {
 	font-size: 1rem;
 	font-weight: 400;
+}
+
+.content {
+	padding: 15px;
+}
+
+img.detail-picture {
+	border: solid black 2px;
+	width: 400px;
+}
+
+.detail-page {
+	display: flex;
+	gap: 15px;
+}
+
+.detail {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+.button-group {
+	display: flex;
+	gap: 5px;
+}
+.button-group button,
+input {
+	display: inline-block;
+	margin: 0;
+	padding: 0.75rem 1rem;
+	border: 0;
+	border-radius: 0.317rem;
+	color: #fff;
+	text-decoration: none;
+	font-weight: 700;
+	font-size: 1rem;
+	line-height: 1.5;
+}
+
+.buy {
+	background-color: rgb(221, 123, 11);
+}
+.buy:hover {
+	background-color: rgb(235, 149, 50);
+}
+
+.update {
+	background-color: #00b7ff;
+}
+.update:hover {
+	background-color: #5fd0fd;
+}
+.delete {
+	background-color: red;
+}
+
+.delete:hover {
+	background-color: rgb(255, 70, 70);
+}
+h2 {
+	font-size: 1.8rem;
+	font-weight: 400;
+	margin-bottom: 30px;
 }

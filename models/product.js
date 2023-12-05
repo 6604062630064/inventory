@@ -25,6 +25,11 @@ ProductSchema.virtual("url").get(function () {
 	return `/products/${this._id}`;
 });
 
+ProductSchema.virtual("category_url").get(function () {
+	// We don't use an arrow function as we'll need the this object
+	return `/categories/${this.category.name}`;
+});
+
 ProductSchema.virtual("img_url").get(function () {
 	// We don't use an arrow function as we'll need the this object
 	return `/img/${this._id}`;
