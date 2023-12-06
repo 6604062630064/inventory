@@ -7,14 +7,21 @@ exports.category_detail = asyncHandler(async (req, res, next) => {
 	// To be implemented
 });
 
-exports.category_add = asyncHandler(async (req, res, next) => {
+exports.category_add_get = asyncHandler(async (req, res, next) => {
 	// To be implemented
 });
-
-exports.category_edit = asyncHandler(async (req, res, next) => {
+exports.category_add_post = asyncHandler(async (req, res, next) => {
 	// To be implemented
 });
-
-exports.category_delete = asyncHandler(async (req, res, next) => {
+exports.category_edit_get = asyncHandler(async (req, res, next) => {
+	// To be implemented
+});
+exports.category_edit_post = asyncHandler(async (req, res, next) => {
+	// To be implemented
+});
+exports.category_delete_get = asyncHandler(async (req, res, next) => {
+	// To be implemented
+});
+exports.category_delete_post = asyncHandler(async (req, res, next) => {
 	// To be implemented
 });

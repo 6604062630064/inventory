@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 const ProductSchema = new Schema({
 	name: { type: String, required: true, max: 100 },
-	desc: { type: String },
+	desc: { type: String, max: 600 },
 
 	// Stored as string so it's easier to check
 	price: {

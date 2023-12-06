@@ -20,12 +20,22 @@ exports.product_detail = asyncHandler(async (req, res, next) => {
 	res.render("product_detail", { product: product });
 });
 
-exports.product_add = asyncHandler(async (req, res, next) => {
-	// To be implemented
+exports.product_add_get = asyncHandler(async (req, res, next) => {
+	const categories = await Category.find({}).exec();
+	res.render("product_add", { extraScript: true, categories: categories });
 });
-exports.product_edit = asyncHandler(async (req, res, next) => {
+exports.product_add_post = asyncHandler(async (req, res, next) => {
 	res.sendStatus(202);
 });
-exports.product_delete = asyncHandler(async (req, res, next) => {
+exports.product_edit_get = asyncHandler(async (req, res, next) => {
+	res.sendStatus(202);
+});
+exports.product_edit_post = asyncHandler(async (req, res, next) => {
+	res.sendStatus(202);
+});
+exports.product_delete_get = asyncHandler(async (req, res, next) => {
+	// To be implemented
+});
+exports.product_delete_post = asyncHandler(async (req, res, next) => {
 	// To be implemented
 });

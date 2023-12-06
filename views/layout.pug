@@ -13,5 +13,10 @@ html
           a(href="/products")  All products 
         li 
           a(href="/categories")  All categories
+        li 
+          a(href="/products/add")  Add a product
     .content
       block content
+
+    if (typeof extraScript !== 'undefined')
+        script(src="/javascripts/validation.js")

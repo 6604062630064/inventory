@@ -8,14 +8,25 @@ router.get("/", function (req, res, next) {
 	res.render("index", { title: "Express" });
 });
 router.get("/products", product_controller.product_list);
+router.get("/products/add", product_controller.product_add_get);
 router.get("/products/:id", product_controller.product_detail);
-router.get("/products/:id/add", product_controller.product_add);
-router.get("/products/:id/edit", product_controller.product_edit);
-router.get("/products/:id/delete", product_controller.product_delete);
+router.get("/products/:id/edit", product_controller.product_edit_get);
 
-router.get("/categories/:id/detail", category_controller.category_detail);
-router.get("/categories/:id/add", category_controller.category_add);
-router.get("/categories/:id/edit", category_controller.category_edit);
-router.get("/categories/:id/delete", category_controller.category_delete);
+router.post("/products/add", product_controller.product_add_post);
+router.post("/products/:id/delete", product_controller.product_delete_post);
+router.post("/products/:id/edit", product_controller.product_edit_post);
+router.post("/products/:id/delete", product_controller.product_delete_post);
 
+router.get("/categories/:name/detail", category_controller.category_detail);
+router.get("/categories/:name/add", category_controller.category_add_get);
+router.get("/categories/:name/edit", category_controller.category_edit_get);
+router.get("/categories/:name/delete", category_controller.category_delete_get);
+
+router.post("/categories/:name/detail", category_controller.category_detail);
+router.post("/categories/:name/add", category_controller.category_add_post);
+router.post("/categories/:name/edit", category_controller.category_edit_post);
+router.post(
+	"/categories/:name/delete",
+	category_controller.category_delete_post
+);
 module.exports = router;

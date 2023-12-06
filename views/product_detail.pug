@@ -9,6 +9,7 @@ block content
                 p Description: #{product.desc}           
                 p Category: #[a(href=product.category_url) #{product.category.name}]
                 p In stock: #{product.in_stock}
+                p Price: $#{product.price}
             .button-group
                 button.buy Buy 
                 a(href=product.url + "/edit", target="_")

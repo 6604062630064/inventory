@@ -1,0 +1,25 @@
+extends layout
+
+block content
+    h2 Add product form
+    form.add(action="./add", method="post")
+
+        label(for="name") Name
+        input(type="text", id="name", maxlength=100, name="name", required)
+
+        label(for="desc") Description
+        textarea(id="desc", name="desc", rows="4", cols="50", maxlength=600)
+
+        label(for="price") Price
+        input(type="text", id="price", pattern="^\\d*\\.\\d{2}$" name="price", required, oninvalid="this.setCustomValidity('Input must have exactly 2 decimal places like 19999.45')", onchange="this.setCustomValidity('')")
+        p Input must be in a form of xx.xx
+        label(for="category") Category 
+        select(name="category", id="category")
+            option(disabled,selected,value) -- select an option --
+            for category in categories
+                option(value=category.name) #{category.name}
+        
+        label(for="in_stock") In stock
+        input(type="text", id="in_stock", maxlength=5, name="in_stock", onkeypress="return isNumberKey(event)", required)
+    
+        button(type="submit") Submit
