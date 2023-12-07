@@ -16,7 +16,10 @@ const ProductSchema = new Schema({
 	in_stock: {
 		type: Number,
 		default: 1,
-		validate: { validator: Number.isInteger },
+		validate: [
+			{ validator: Number.isInteger },
+			{ validator: (v) => v >= 1 && v <= 99999 },
+		],
 	},
 });
 
