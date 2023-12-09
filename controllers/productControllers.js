@@ -50,7 +50,6 @@ exports.product_list = asyncHandler(async (req, res, next) => {
 		{},
 		{ name: 1, price: 1, in_stock: 1, _id: 1 }
 	).exec();
-	console.log(products[0].url);
 	res.render("product_list", { products: products });
 });
 
@@ -85,35 +84,32 @@ exports.product_add_post = [
 				body: req.body,
 			});
 			return;
-		}
+		} else {
+			// if it passes validation, continue here
+			const category = await Category.findOne(
+				{ name: req.body.category },
+				{ _id: 1 }
+			).exec();
 
-		// if it passes validation, continue here
-		const category = await Category.findOne(
-			{ name: req.body.category },
-			{ _id: 1 }
-		).exec();
-
-		const product = new Product({
-			name: req.body.name,
-			desc: req.body.desc,
-			price: req.body.price,
-			category: category._id,
-			in_stock: req.body.in_stock,
-		});
-		// Saving
-		await product
-			.save()
-			.then((savedOne) => {
-				// If it's successful, go here
-				const _id = savedOne._id;
-				res.redirect("/products/" + _id);
-			})
-			.catch((err) => {
-				console.log(err);
-				res.sendStatus(500);
+			const product = new Product({
+				name: req.body.name,
+				desc: req.body.desc,
+				price: req.body.price,
+				category: category._id,
+				in_stock: req.body.in_stock,
 			});
-
-		res.sendStatus(202);
+			// Saving
+			await product
+				.save()
+				.then((savedOne) => {
+					// If it's successful, go here
+					const _id = savedOne._id;
+					res.redirect(savedOne.url);
+				})
+				.catch((err) => {
+					res.sendStatus(404);
+				});
+		}
 	}),
 ];
 exports.product_edit_get = asyncHandler(async (req, res, next) => {
@@ -129,6 +125,7 @@ exports.product_edit_get = asyncHandler(async (req, res, next) => {
 	res.render("product_edit", {
 		body: product,
 		categories: categories,
+		category_name: product.category.name,
 		extraScript: true,
 	});
 });
@@ -136,40 +133,92 @@ exports.product_edit_post = [
 	validationChain,
 	asyncHandler(async (req, res, next) => {
 		const result = validationResult(req);
-		const id = req.params.id;
+
 		if (!result.isEmpty()) {
 			// Do something if throwing error
+			console.log(req.body.category);
 			const categories = await Category.find({}, { name: 1, _id: 0 }).exec();
 			res.render("product_edit", {
 				extraScript: true,
 				categories: categories,
+				category_name: req.body.category,
 				errorMsg: result.errors,
 				body: req.body,
 			});
-		}
+		} else {
+			const id = req.params.id;
+			const category = await Category.findOne(
+				{ name: req.body.category },
+				{ _id: 1 }
+			).exec();
 
-		const category = await Category.findOne(
-			{ name: req.body.category },
-			{ _id: 1 }
-		).exec();
-		Product.findByIdAndUpdate(
-			{ _id: id },
-			{
-				name: req.body.name,
-				price: req.body.price,
-				desc: req.body.desc,
-				in_stock: req.body.in_stock,
-				category: category._id,
-			}
-		).then((result) => {
-			const _id = result._id;
-			res.redirect("/products/" + _id);
-		});
+			await Product.findByIdAndUpdate(
+				{ _id: id },
+				{
+					name: req.body.name,
+					price: req.body.price,
+					desc: req.body.desc,
+					in_stock: req.body.in_stock,
+					category: category._id,
+				}
+			)
+				.then((result) => {
+					const _id = result._id;
+					res.redirect(result.url);
+				})
+				.catch((err) => {
+					res.sendStatus(404);
+				});
+		}
 	}),
 ];
 exports.product_delete_get = asyncHandler(async (req, res, next) => {
-	res.send("NOT IMPLEMENTED: Product delete GET");
+	const req_id = req.params.id;
+	const delete_key = await Product.findById({ _id: req_id }, { name: 1 })
+		.exec()
+		.catch((err) => {
+			res.sendStatus(404);
+		});
+	res.render("product_delete", { delete_key: delete_key.name });
 });
-exports.product_delete_post = asyncHandler(async (req, res, next) => {
-	res.send("NOT IMPLEMENTED: Product delete POST");
-});
+exports.product_delete_post = [
+	body("name")
+		.custom(async (v, { req }) => {
+			const id = req.params.id;
+			const result = await Product.findOne({ _id: id }, { name: 1 })
+				.exec()
+				.catch((err) => {
+					throw new Error(`Not found`);
+				});
+			if (v !== result.name) {
+				// If names are not matched, throw error
+				throw new Error(`Name mismatch`);
+			}
+		})
+		.escape(),
+
+	asyncHandler(async (req, res, next) => {
+		const result = validationResult(req);
+		if (!result.isEmpty()) {
+			// Error
+			const delete_key = await Product.findById(
+				{ _id: req.params.id },
+				{ name: 1 }
+			).exec();
+			res.render("product_delete", {
+				delete_key: delete_key.name,
+				errorMsg: result.errors,
+			});
+		} else {
+			const id = req.params.id;
+			Product.findOneAndDelete({ _id: id })
+				.exec()
+				.then((a) => {
+					res.redirect("/products");
+				})
+				.catch((err) => {
+					res.sendStatus(404);
+				});
+		}
+	}),
+];

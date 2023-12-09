@@ -5,10 +5,10 @@ block content
     form.add(action="./add", method="post", autocomplete="off")
 
         label(for="name") Name
-        input(type="text", id="name", maxlength=100, name="name", value=body ? body.name : "")
+        input(type="text", id="name", maxlength=100, name="name", value=body ? body.name : "", required)
 
         label(for="desc") Description
-        textarea(id="desc", name="desc", rows="4", cols="50", maxlength=600, value=body ? body.desc : "")
+        textarea(id="desc", name="desc", rows="4", cols="50", maxlength=600) #{body ? body.desc : ""}
         p 
             span#counter
             | / 600

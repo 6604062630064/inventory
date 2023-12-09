@@ -5,7 +5,7 @@ block content
     form.add(action="./edit", method="post", autocomplete="off")
         img.detail-picture(src="/images/product_placeholder.jpg", alt="")
         label(for="name") Name
-        input(type="text", id="name", maxlength=100, name="name", value=body ? body.name : "")
+        input(type="text", id="name", maxlength=100, name="name", value=body ? body.name : "", required)
 
         label(for="desc") Description
         textarea(id="desc", name="desc", rows="4", cols="50", maxlength=600, ) #{body ? body.desc : ""}
@@ -19,7 +19,7 @@ block content
         select(name="category", id="category")
             option(disabled,selected,value) -- select an option --
             for category in categories
-                if (category.name === (body.category.name) ? body.category.name : body.name)
+                if (category.name === category_name)
                     option(value=category.name, selected="selected") #{category.name}
                 else 
                     option(value=category.name) #{category.name}

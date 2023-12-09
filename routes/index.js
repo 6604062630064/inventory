@@ -5,7 +5,7 @@ const category_controller = require("../controllers/categoryControllers");
 
 /* GET home page. */
 router.get("/", function (req, res, next) {
-	res.render("index", { title: "Express" });
+	res.redirect("/products");
 });
 router.get("/products", product_controller.product_list);
 router.get("/products/add", product_controller.product_add_get);
