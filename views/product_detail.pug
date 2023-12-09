@@ -12,7 +12,7 @@ block content
                 p Price: $#{product.price}
             .button-group
                 button.buy Buy 
-                a(href=product.url + "/edit", target="_")
+                a(href=product.url + "/edit")
                     input.update(type="button", value="Edit")
-                a(href=product.url + "/delete", target="_")
+                a(href=product.url + "/delete")
                     input.delete(type="button", value="Delete")

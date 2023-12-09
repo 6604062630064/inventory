@@ -218,8 +218,7 @@ img.detail-picture {
 	gap: 5px;
 }
 .button-group button,
-.button-group input,
-.add button {
+.button-group input {
 	display: inline-block;
 	margin: 0;
 	padding: 0.75rem 1rem;
@@ -258,12 +257,12 @@ h2 {
 	margin-bottom: 30px;
 }
 
-form.add label,
-form.add input {
+form label,
+form input {
 	display: block;
 }
 
-form.add label {
+form label {
 	margin-top: 19px;
 	margin-bottom: 3px;
 	font-size: 1.2rem;
@@ -273,9 +272,7 @@ textarea {
 	margin-bottom: 4px;
 }
 
-.add button {
-	display: inline-block;
-	margin: 0;
+form button {
 	padding: 0.75rem 1rem;
 	border: 0;
 	border-radius: 0.317rem;
@@ -284,14 +281,18 @@ textarea {
 	font-weight: 700;
 	font-size: 1rem;
 	line-height: 1.5;
+}
+
+form button {
+	background-color: red;
 	margin-top: 15px;
 	margin-bottom: 15px;
 }
 
-.add button {
-	background-color: red;
+form button:hover {
+	background-color: rgb(255, 70, 70);
 }
 
-.add button:hover {
-	background-color: rgb(255, 70, 70);
+h3 {
+	margin-bottom: 15px;
 }
