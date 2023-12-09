@@ -14,9 +14,13 @@ exports.product_list = asyncHandler(async (req, res, next) => {
 
 exports.product_detail = asyncHandler(async (req, res, next) => {
 	const id = req.params.id;
-	const product = await Product.findById(id).populate("category").exec();
-	console.log(product);
-	console.log(product.category_url);
+	const product = await Product.findOne({ _id: id })
+		.populate("category")
+		.exec()
+		.catch((err) => {
+			res.sendStatus(404);
+		});
+
 	res.render("product_detail", { product: product });
 });
 
@@ -108,7 +112,16 @@ exports.product_add_post = [
 	}),
 ];
 exports.product_edit_get = asyncHandler(async (req, res, next) => {
-	res.sendStatus(202);
+	const id = req.params.id;
+	const product = await Product.findOne({ _id: id })
+		.populate("category")
+		.exec()
+		.catch((err) => {
+			res.sendStatus(404);
+		});
+	const categories = await Category.find({}, { name: 1, _id: 0 }).exec();
+
+	res.render("product_edit", { body: product, categories: categories });
 });
 exports.product_edit_post = asyncHandler(async (req, res, next) => {
 	res.sendStatus(202);

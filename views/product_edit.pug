@@ -1,0 +1,39 @@
+extends layout
+
+block content
+    h2 Edit product form
+    form.add(action="./edit", method="post", autocomplete="off")
+        img.detail-picture(src="/images/product_placeholder.jpg", alt="")
+        label(for="name") Name
+        input(type="text", id="name", maxlength=100, name="name", value=body ? body.name : "")
+
+        label(for="desc") Description
+        textarea(id="desc", name="desc", rows="4", cols="50", maxlength=600, ) #{body ? body.desc : ""}
+
+        label(for="price") Price
+        input(type="text", id="price",  name="price", required, oninvalid="this.setCustomValidity('Input must have exactly 2 decimal places like 19999.45')", onchange="this.setCustomValidity('')", value=body ? body.price : "", pattern="^([1-9]\\d*|0)\\.[0-9]{2}$")
+        p Input must be in a form of xx.xx
+        label(for="category") Category 
+        select(name="category", id="category")
+            option(disabled,selected,value) -- select an option --
+            for category in categories
+                if (body)
+                    if (category.name === body.category.name)
+                        option(value=category.name, selected="selected") #{category.name}
+                    else 
+                        option(value=category.name) #{category.name}
+                else
+                    option(value=category.name) #{category.name}
+                
+        
+        label(for="in_stock") In stock
+        input(type="text", id="in_stock", maxlength=5, name="in_stock", onkeypress="return isNumberKey(event)", required, value=body ? body.in_stock : "")
+    
+        button(type="submit") Submit
+
+        
+    if (typeof(errorMsg) !== "undefined") 
+        for val in errorMsg
+            h3.errorMsg #{val.msg}
+            
+            
