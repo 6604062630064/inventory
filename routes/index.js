@@ -11,9 +11,9 @@ router.get("/products", product_controller.product_list);
 router.get("/products/add", product_controller.product_add_get);
 router.get("/products/:id", product_controller.product_detail);
 router.get("/products/:id/edit", product_controller.product_edit_get);
+router.get("/products/:id/delete", product_controller.product_delete_get);
 
 router.post("/products/add", product_controller.product_add_post);
-router.post("/products/:id/delete", product_controller.product_delete_post);
 router.post("/products/:id/edit", product_controller.product_edit_post);
 router.post("/products/:id/delete", product_controller.product_delete_post);
 

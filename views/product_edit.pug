@@ -9,7 +9,9 @@ block content
 
         label(for="desc") Description
         textarea(id="desc", name="desc", rows="4", cols="50", maxlength=600, ) #{body ? body.desc : ""}
-
+        p 
+            span#counter
+            | / 600
         label(for="price") Price
         input(type="text", id="price",  name="price", required, oninvalid="this.setCustomValidity('Input must have exactly 2 decimal places like 19999.45')", onchange="this.setCustomValidity('')", value=body ? body.price : "", pattern="^([1-9]\\d*|0)\\.[0-9]{2}$")
         p Input must be in a form of xx.xx
@@ -17,12 +19,9 @@ block content
         select(name="category", id="category")
             option(disabled,selected,value) -- select an option --
             for category in categories
-                if (body)
-                    if (category.name === body.category.name)
-                        option(value=category.name, selected="selected") #{category.name}
-                    else 
-                        option(value=category.name) #{category.name}
-                else
+                if (category.name === (body.category.name) ? body.category.name : body.name)
+                    option(value=category.name, selected="selected") #{category.name}
+                else 
                     option(value=category.name) #{category.name}
                 
         

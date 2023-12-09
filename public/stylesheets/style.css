@@ -270,6 +270,7 @@ form.add label {
 }
 textarea {
 	resize: none;
+	margin-bottom: 4px;
 }
 
 .add button {
