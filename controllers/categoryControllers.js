@@ -31,11 +31,34 @@ exports.category_detail = asyncHandler(async (req, res, next) => {
 });
 
 exports.category_add_get = asyncHandler(async (req, res, next) => {
-	// To be implemented
+	res.render("category_add");
 });
-exports.category_add_post = asyncHandler(async (req, res, next) => {
-	// To be implemented
-});
+exports.category_add_post = [
+	body("name", "Invalid character or the first letter is not capitalized.")
+		.trim()
+		.isAlpha("en-US", { ignore: " " })
+		.matches(/^[A-Z].*$/gm)
+		.escape(),
+	asyncHandler(async (req, res, next) => {
+		const result = validationResult(req);
+
+		if (!result.isEmpty()) {
+			// If error it goes here
+			res.sendStatus(404);
+			res.render("category_add", { body: req.body });
+			return;
+		}
+
+		const category = new Category({ name: req.body.name });
+		const createdCategory = await category.save();
+
+		if (!createdCategory) {
+			res.sendStatus(404);
+		} else {
+			res.redirect("/categories/");
+		}
+	}),
+];
 exports.category_edit_get = asyncHandler(async (req, res, next) => {
 	res.sendStatus(202);
 });

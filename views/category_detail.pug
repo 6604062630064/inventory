@@ -19,4 +19,9 @@ block content
                         p $#{product.price} 
        
     else
-        h2 There isn't any product with a #{category} tag
+        h2 There isn't any product with a #{category.name} tag
+        .button-group
+                a(href=category.url + "/edit")
+                    input.update(type="button", value="Edit")
+                a(href=category.url + "/delete")
+                    input.delete(type="button", value="Delete")
