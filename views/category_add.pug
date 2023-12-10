@@ -5,7 +5,7 @@ block content
     form.add(action="./add", method="post", autocomplete="off")
 
         label(for="name") Name
-        input(type="text", id="name", maxlength=30, name="name", value=body ? body.name : "", required, pattern="^[A-Z].*$", oninvalid="this.setCustomValidity('Must capitalize the first letter')", onchange="this.setCustomValidity('')", onkeydown="return /[a-z]/i.test(event.key)")
+        input(type="text", id="name", maxlength=30, name="name", value=(category_name) ? category_name : "", required, pattern="^[A-Z].*$", oninvalid="this.setCustomValidity('Must capitalize the first letter')", onchange="this.setCustomValidity('')", onkeydown="return /[a-z]/i.test(event.key)")
         button(type="submit") Submit
 
         

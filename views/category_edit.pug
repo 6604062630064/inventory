@@ -1,0 +1,14 @@
+extends layout
+
+block content
+    h2 Edit category form
+    form.add(action="./edit", method="post", autocomplete="off")
+
+        label(for="name") Name
+        input(type="text", id="name", maxlength=30, name="name", value=category_name, required, pattern="^[A-Z].*$", oninvalid="this.setCustomValidity('Must capitalize the first letter')", onchange="this.setCustomValidity('')", onkeydown="return /[a-z]/i.test(event.key)")
+        button(type="submit") Submit
+
+        
+    if (typeof(errorMsg) !== "undefined") 
+        for val in errorMsg
+            h3.errorMsg #{val.msg}
