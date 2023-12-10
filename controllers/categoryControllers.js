@@ -123,8 +123,63 @@ exports.category_edit_post = [
 	}),
 ];
 exports.category_delete_get = asyncHandler(async (req, res, next) => {
-	// To be implemented
+	const receivedName = req.params.name;
+	const category = await Category.findOne(
+		{ name: receivedName },
+		{ _id: 1, name: 1 }
+	).exec();
+
+	if (!category) {
+		// Will go here and end the function if not found
+		res.sendStatus(404);
+		return;
+	}
+
+	res.render("category_delete", { delete_key: category.name });
 });
-exports.category_delete_post = asyncHandler(async (req, res, next) => {
-	// To be implemented
-});
+exports.category_delete_post = [
+	body("name")
+		.custom(async (v, { req }) => {
+			if (v !== req.params.name) {
+				throw new Error("Name mismatch");
+			}
+
+			const category_id = await Category.findOne(
+				{ name: req.params.name },
+				{ _id: 1 }
+			).exec();
+			const result = await Product.find(
+				{ category: category_id },
+				{ name: 1 }
+			).exec();
+
+			if (result.length !== 0) {
+				throw new Error(
+					"Remove the product with the tag you want to remove first!"
+				);
+			}
+		})
+		.escape(),
+	asyncHandler(async (req, res, next) => {
+		const result = validationResult(req);
+
+		if (!result.isEmpty()) {
+			// If error it goes here
+			res.render("category_delete", {
+				delete_key: req.params.name,
+				errorMsg: result.errors,
+			});
+			return;
+		}
+
+		const category_name = req.body.name;
+		Category.findOneAndDelete({ name: category_name })
+			.exec()
+			.then((a) => {
+				res.redirect("/categories");
+			})
+			.catch((err) => {
+				res.sendStatus(404);
+			});
+	}),
+];
