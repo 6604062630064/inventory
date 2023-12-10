@@ -49,7 +49,9 @@ exports.product_list = asyncHandler(async (req, res, next) => {
 	const products = await Product.find(
 		{},
 		{ name: 1, price: 1, in_stock: 1, _id: 1 }
-	).exec();
+	)
+		.sort({ name: 1 })
+		.exec();
 	res.render("product_list", { products: products });
 });
 
