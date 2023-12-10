@@ -216,6 +216,7 @@ img.detail-picture {
 .button-group {
 	display: flex;
 	gap: 5px;
+	margin-bottom: 45px;
 }
 .button-group button,
 .button-group input {

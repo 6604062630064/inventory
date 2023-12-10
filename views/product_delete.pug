@@ -4,7 +4,7 @@ block content
     h2 Delete product form
     form(action="./delete", method="post", autocomplete="off")
         h3 Type "#{delete_key}" below to confirm the deletion.
-        input(type="text", id="name", maxlength=100, name="name", pattern=delete_key)
+        input(type="text", id="name", maxlength=100, name="name", pattern=delete_key, requried)
 
         
     

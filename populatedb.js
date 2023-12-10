@@ -86,5 +86,6 @@ async function createCategories() {
 		categoryCreate(0, "Computer"),
 		categoryCreate(1, "Car"),
 		categoryCreate(2, "Food"),
+		categoryCreate(3, "None"),
 	]);
 }

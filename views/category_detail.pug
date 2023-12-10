@@ -1,0 +1,22 @@
+extends layout
+
+block content
+    if (products.length)
+        h2 Products with a #{category.name} tag
+        .button-group
+                a(href=category.url + "/edit")
+                    input.update(type="button", value="Edit")
+                a(href=category.url + "/delete")
+                    input.delete(type="button", value="Delete")
+        .list
+            each product in products
+                div
+                    a(href=product.url) 
+                        img.list-page(src="/images/product_placeholder.jpg", alt="")
+                    h3= product.name
+                    .info 
+                        p Stock: #{product.in_stock}
+                        p $#{product.price} 
+       
+    else
+        h2 There isn't any product with a #{category} tag
